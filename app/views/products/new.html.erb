@@ -1,0 +1,21 @@
+<div class="products-table">
+  <h1>お気に入り登録</h1>
+  <%= form_with model: @product do |f| %>
+    <div class="new-name">
+    <%= f.text_field :name, placeholder: "商品名" %>
+    </div>
+    <div class="new-price">
+    <%= f.text_field :price, placeholder: "希望価格" %>
+    </div>
+    <div class="new-code">
+    <%= f.text_field :code, placeholder: "コード"%>
+    </div>
+    <div class="new-submit">
+    <%= f.submit "登録"  %>
+    </div>
+  <% end %>
+    <div class="new-return">
+    <%= button_to '戻る', search_products_path, method: :get %>
+    </div>
+</div>
+  
