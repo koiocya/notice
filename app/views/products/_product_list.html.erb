@@ -1,0 +1,31 @@
+<% @items.first(10).each do |item| %> 
+  <div class="item-image">
+  <%= image_tag item['mediumImageUrls'][0] %>
+  </div>
+  <table>
+    <tr>
+      <td>金額</td>
+      <td>
+        <div class="item-price" id="prices">
+        <%= "#{item.price} 円" %>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>URL</td>
+      <td>
+        <div class="item-url">
+          <a id="url" href="<%= item['itemUrl'] %>"target="_blank"><%= item['itemName'] %></a>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>コード</td>
+      <td>
+        <div class="item-code">
+        <%= item['itemCode'] %>
+        </div>
+      </td>
+    </tr>
+  </table>
+<% end %>
