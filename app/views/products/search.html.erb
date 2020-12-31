@@ -1,1 +1,60 @@
-<p>Hello World</p>
+<!DOCTYPE html>
+<html>
+<head>
+  <%= stylesheet_link_tag 'application', media:'all', 'data-turbolinks-track': 'reload' %>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/push.js/1.0.12/push.min.js"></script>
+  <meta charset="UTF-8">
+  <title>Searchお茶</title>
+</head>
+<body>
+  <div class='content'>
+  <h1>お茶検索</h1>
+    <div id="search-box">
+        <%= form_with url: search_products_path, method: :get, local: true  do |f| %>
+        <div class="search-keyword"> 
+          <%= f.text_field :keyword, class: "search-keyword", id: "product_search",placeholder: '商品名' %>
+        </div>
+        <div class="search-minPrice">
+          <%= f.text_field :minPrice, class: "search-minPrice", id: "product_search",placeholder: '希望価格' %>
+        </div>
+        
+        <div class="search-submit">
+          <%= f.submit '検索', class: "submit" %>
+        </div>
+        <% end %>
+    </div>
+  
+    <div class="action">
+      <%= button_to 'お気に入り登録する', { controller: 'products', action: 'new'}, method: :get %>
+    </div>
+    
+    <h4>お気に入りリスト</h4>
+    <div id='goods'>
+    <% @products.each do |product| %>
+    <div class="product-table">
+    <table>
+      <tr id="products-name">
+        <th>商品名</th>
+        <th class="product-name",id="want-name"><%= product.name %></th>
+      </tr>
+      <tr>
+        <th id="products-price">金額</th>
+        <th class="product-price",id="want-price"><%= product.price %></th>
+      </tr>
+      <tr>
+        <th id="product-code">コード</th>
+        <th class="product-code",id="want-code"><%= product.code %></th>
+      </tr>
+    </table>
+    </div>
+    <% end %>
+
+    <h2>検索結果</h2>
+    <div id='product_list'>
+      <% if @items.present? %>
+      <%= render partial: 'product_list' %>
+      <% end %>
+    </div>
+  </div>
+</body>
+</html>
