@@ -9,7 +9,16 @@ class ProductsController < ApplicationController
     if @product.save
       redirect_to root_path
     else
-      render :new
+      render :search
+    end
+  end
+
+  def destroy
+    product = Product.find(params[:id])
+    if product.destroy
+      redirect_to root_path
+    else
+      render :search
     end
   end
 
