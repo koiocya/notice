@@ -17,7 +17,6 @@
         <div class="search-minPrice">
           <%= f.text_field :minPrice, class: "search-minPrice", id: "product_search",placeholder: '希望価格' %>
         </div>
-        
         <div class="search-submit">
           <%= f.submit '検索', class: "submit" %>
         </div>
@@ -25,11 +24,10 @@
     </div>
   
     <div class="action">
-      <%= button_to 'お気に入り登録する', { controller: 'products', action: 'new'}, method: :get %>
+      <%= button_to 'お気に入り登録', { controller: 'products', action: 'new'}, method: :get %>
     </div>
     
     <h4>お気に入りリスト</h4>
-    <div id='goods'>
     <% @products.each do |product| %>
     <div class="product-table">
     <table>
@@ -47,7 +45,11 @@
       </tr>
     </table>
     </div>
+    <div class="destroy">
+      <%= button_to '削除', product_path(product.id), method: :delete %>
+    </div>
     <% end %>
+    
 
     <h2>検索結果</h2>
     <div id='product_list'>
