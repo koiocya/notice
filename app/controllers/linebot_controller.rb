@@ -15,25 +15,39 @@ class LinebotController < ApplicationController
 
     signature = request.env['HTTP_X_LINE_SIGNATURE']
     unless client.validate_signature(body, signature)
-      head :bad_request
+      error 400 do 'Bad Request' end
     end
 
     events = client.parse_events_from(body)
 
     events.each { |event|
-      case event
+      if event.message['text'] != nil
+        keyword = event.message['text']
+        result = `https://app.rakuten.co.jp/services/api/IchibaItem/Search/20170706?format=json&keyword=#{keyword}&applicationId=ENV['RAKUTEN_APP_ID']`
+      end
+
+      hash_result = JSON.parse result
+      items = hash_result["rest"]
+      item = items.sample
+
+      url = item['itemUrl']
+      item_name = item['itemName']
+      item_price = item['itemPrice']
+
+      response = "【商品名】" + item_name + "\n" + "【価格】" + item_price + url
+        case event
       when Line::Bot::Event::Message
         case event.type
         when Line::Bot::Event::MessageType::Text
           message = {
             type: 'text',
-            text: event.message['text']
+            text: response
           }
-          client.reply_message(event['replyToken'], message)
+          client.reply_message(event['replayToken'], message)
         end
       end
     }
-
     head :ok
   end
-end
+
+  
