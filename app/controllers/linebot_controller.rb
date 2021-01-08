@@ -28,7 +28,7 @@ class LinebotController < ApplicationController
 
       hash_result = JSON.parse result
       items = hash_result["rest"]
-      item = items.sample
+      item = items.name
 
       url = item['itemUrl']
       item_name = item['itemName']
