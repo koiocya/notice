@@ -23,7 +23,7 @@ class LinebotController < ApplicationController
     events.each { |event|
       if event.message['text'] != nil
         keyword = event.message['text']
-        result = `curl -X GET https://app.rakuten.co.jp/services/api/IchibaItem/Search/20170706?format=json&keyword=#{keyword}&applicationId=ENV['RAKUTEN_APP_ID']`
+        result = `curl -X GET https://app.rakuten.co.jp/services/api/IchibaItem/Search/20170706?format=json&keyword=%E3%81%8A%E8%8C%B6&applicationId=ENV['RAKUTEN_APP_ID']`
       end
 
       hash_result = JSON.parse result
